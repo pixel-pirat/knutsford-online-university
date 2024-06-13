@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Dashboard</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            background-color: #343a40;
+            color: white;
+            border-bottom: 50px solid #dee2e6;
+            width: 100%;
+            box-sizing: border-box;
+        }
+		.user-info button {
+            background-color: #555;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+		}
+        .main {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+
+        }
+		
+		.category {
+            margin-bottom: 40px;
+        }
+        .courses-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 50px;
+        }
+        .course {
+            background-color: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 18%;
+            text-align: center;
+        }
+        .course img {
+            width: 100%;
+            height: 250px;
+        }
+        .course button {
+            background-color: #6200ea;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .course button:hover {
+            background-color: #3700b3;
+        }
+		  .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: white;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 5px;
+            overflow: hidden;
+        }	
+        .course-info {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+        .dashboard {
+            width: 200px;
+            background-color: #343a40;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            box-sizing: border-box;
+        }
+        .dashboard button {
+            background-color: #495057;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            border-radius: 5px;
+        }
+        .dashboard button:hover {
+            background-color: #6c757d;
+        }
+        .content-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+            padding: 10px;
+			background-color: grey;
+        }
+        .content {
+            flex: 1;
+            padding: 20px;
+            background-color: #fff;
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+		}
+		.time-content  {
+			display: flex;
+			border-radius: 5px
+			background-color: green;
+			
+			
+			
+        }
+        .chat-container {
+            width: 350px;
+            display: flex;
+            flex-direction: column;
+            background-color: #d4edda;
+            border: 2px solid #155724;
+            border-radius: 10px;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .chat-box {
+            flex: 1;
+            overflow-y: manifest;
+            margin-bottom: 10px;
+        }
+        .chat-input-container {
+            display: flex;
+            gap: 5px;
+        }
+        .chat-input-container input[type="text"] {
+            flex: 1;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .chat-input-container button {
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            background-color: #28a745;
+            color: #fff;
+        }
+        .message {
+            display: flex;
+            align-items: flex-end;
+            margin: 5px 0;
+        }
+        .message .content {
+            max-width: 70%;
+            padding: 10px;
+            border-radius: 10px;
+            position: relative;
+        }
+        .message.sent .content {
+            background-color: #e2ffc7;
+            align-self: flex-start;
+            border: 1px solid #b2d8a0;
+        }
+        .message.received .content {
+            background-color: #f1f1f1;
+            align-self: flex-end;
+            border: 1px solid #ccc;
+        }
+        .timestamp {
+            font-size: 0.8em;
+            color: #999;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="course-info">
+            <div class="course-title">Course Title</div>
+            <div class="course-code">Course Code</div>
+        </div>
+        <div class="user-info-dropdown">
+               <div class="user-info">
+            <button onclick="toggleDropdown()">User Info</button>
+            <div class="dropdown-content" id="userDropdown">
+                <p>Name: John Doe</p>
+                <p>Email: john.doe@example.com</p>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="main">
+        <div class="dashboard">
+		<center> <h3> Dashboard </h3> </center>
+            <button onclick="showLevel100()">Level 100</button>
+            <button onclick="showLevel200()">Level 200</button>
+            <button onclick="showLevel300()">Level 300</button>
+            <button onclick="showLevel400()">Level 400</button>
+        </div>
+        <div class="content-container">
+            <div class="content">
+				<div class="time-content"></div>
+					<div id="current-datetime"></div>
+				
+                <div id="main-content">
+                    <!-- Main content based on button click will be displayed here -->
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <script>
+		function toggleDropdown() {
+            const dropdown = document.getElementById('userDropdown');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        }
+        function showLevel100() {
+            document.getElementById('main-content').innerHTML = `
+                <h2>Economics</h2>
+                <div class="course-row">
+                    <div class="category">
+            <div class="courses-row">
+                <div class="course">
+                    <img src="course1.jpg" alt="Course 01">
+                    <h3>Legal and Ethical Issues in ITp</h3>
+                    <p>Dr. Hillar Addo</p>
+                    <button onclick="startCourse()">Start</button>
+                </div>
+                <div class="course">
+                    <img src="course2.jpg" alt="Course 02">
+                    <h3>Introduction to Literature</h3>
+                    <p>Dr. Victoria Ansah</p>
+                    <button onclick="startCourse()">Start</button>
+                </div>
+                <div class="course">
+                    <img src="course3.jpg" alt="Course 03">
+                    <h3>Critical Thinking Skills </h3>
+                    <p>Dr. Angela Yu </p>
+                    <button onclick="startCourse()">Start</button>
+                </div>
+                <div class="course">
+                    <img src="course4.jpg" alt="Course 04">
+                    <h3>Introduction to Programming </h3>
+                    <p>Dr. Thomas Yeboah</p>
+                    <button onclick="startCourse()">Start</button>
+                </div>
+				<div class="course">
+                    <img src="course4.jpg" alt="Course 05">
+                    <h3>Calculus I </h3>
+				
+                    <p>Dr. Emmanuel Lawluvi</p>
+					<br>
+                    <button onclick="startCourse()">Start</button>
+                </div>
+             
+            </div>
+			          <div class="courses-row">
+                <div class="course">
+                    <img src="course1.jpg" alt="Course 06">
+                    <h3>Probability and Statistics</h3>
+                    <p>Dr. Emmanuel Lawluvi</p>
+                    <button onclick="startCourse()">Start</button>
+                </div>
+                <div class="course">
+                    <img src="course2.jpg" alt="Course 07">
+                    <h3>Web Technologies</h3>
+                    <p>Dr. Ian Asare</p>
+					<br>
+                    <button onclick="startCourse()">Start</button>
+                </div>
+                <div class="course">
+                    <img src="course3.jpg" alt="Course 08">
+                    <h3>Basic Academic Writing </h3>
+                    <p>Dr. Victoria Ansah</p>
+                    <button onclick="startCourse()">Start</button>
+                </div>
+               
+                <div class="course">
+                    <img src="course5.jpg" alt="Course 09">
+                    <h3>Understanding Human Societies .</h3>
+                    <p>Queen Mother</p>
+                    <button onclick="startCourse()">Start</button>
+                </div>
+				<div class="course">
+                    <img src="course4.jpg" alt="Course 10">
+                    <h3>End User Computing</h3>
+                    <p>Dr. Hillar Addo</p>
+					<br>
+                    <button onclick="startCourse()">Start</button>
+                </div>
+            </div>
+
+
+            <!-- Repeat .course for more courses -->
+        </div>
+            `;
+        }
+
+        function showLevel200() {
+            document.getElementById('main-content').innerHTML = `
+                           <h2>Courses Level 200</h2>
+                <div class="course-row">
+                    <div class="category">
+            <div class="courses-row">
+                <div class="course">
+                    <img src="course1.jpg" alt="Course 01">
+                    <h3>Principles of Management </h3>
+                    <p>Lecturer</p>
+					<br>
+                    <button onclick="startCourse()">Start</button>
+                </div>
+                <div class="course">
+                    <img src="course2.jpg" alt="Course 02">
+                    <h3>Advanced Academic Writing Skills</h3>
+                    <p>Lecturer</p>
+                    <button onclick="startCourse()">Start</button>
+                </div>
+                <div class="course">
+                    <img src="course3.jpg" alt="Course 03">
+                    <h3>Computer Architecture </h3>
+                    <p>Lecturer</p>
+					<br>
+                    <button onclick="startCourse()">Start</button>
+                </div>
+                <div class="course">
+                    <img src="course4.jpg" alt="Course 04">
+                    <h3>Africa And World Development</h3>
+                    <p>Lecturer</p>
+					<br>
+                    <button onclick="startCourse()">Start</button>
+                </div>
+				<div class="course">
+                    <img src="course4.jpg" alt="Course 05">
+                    <h3>C++ Programming </h3>
+                    <p>Lecturer</p>
+					<br>
+                    <button onclick="startCourse()">Start</button>
+                </div>
+				<div class="course">
+                    <img src="course4.jpg" alt="Course 06">
+                    <h3>Discrete Mathematics </h3>
+                    <p>Lecturer</p>
+					<br>
+                    <button onclick="startCourse()">Start</button>
+                </div>
+             
+            </div>
+			          <div class="courses-row">
+                <div class="course">
+                    <img src="course1.jpg" alt="Course 07">
+                    <h3>Wireless Communication Technologies</h3>
+                    <p>Lecturer</p>
+					<br><br>
+                    <button onclick="startCourse()">Start</button>
+                </div>
+                <div class="course">
+                    <img src="course2.jpg" alt="Course 07">
+                    <h3>IT Rersouce Planning Systems and Analysis Design</h3>
+                    <p>Lecturer</p>
+					<br>
+                    <button onclick="startCourse()">Start</button>
+                </div>
+                <div class="course">
+                    <img src="course3.jpg" alt="Course 08">
+                    <h3>Database Fundamentals and Management</h3>
+                    <p>Lecturer</p>
+					<br><br>
+                    <button onclick="startCourse()">Start</button>
+                </div>
+				<div class="course">
+                    <img src="course4.jpg" alt="Course 09">
+                    <h3>Multimedia And Web Design </h3>
+                    <p>Lecturer</p>
+					<br><br><br>
+                    <button onclick="startCourse()">Start</button>
+                </div>
+               
+                <div class="course">
+                    <img src="course5.jpg" alt="Course 10">
+                    <h3>Data Communication and Networking</h3>
+                    <p>Lecturer</p>
+					<br><br>
+                    <button onclick="startCourse()">Start</button>
+                </div>
+				<div class="course">
+                    <img src="course4.jpg" alt="Course 11">
+                    <h3>Data Structures </h3>
+                    <p>Lecturer</p>
+					<br><br><br><br>
+                    <button onclick="startCourse()">Start</button>
+                </div>
+            </div>
+
+			 `;
+        }
+
+        function showLevel300() {
+            document.getElementById('main-content').innerHTML = `
+                      <h2>Courses</h2>
+                <div class="course-row">
+                    <div class="category">
+            <div class="courses-row">
+                <div class="course">
+                    <img src="course1.jpg" alt="Course 01">
+                    <h3>Operating Systems</h3>
+                    <p>:Lecturer</p>
+					<br><br>
+                    <button onclick="startCourse()">Start</button>
+                </div>
+                <div class="course">
+                    <img src="course2.jpg" alt="Course 02">
+                    <h3>Data Communication And Networking II</h3>
+                    <p>Lecturer</p>
+                    <button onclick="startCourse()">Start</button>
+                </div>
+                <div class="course">
+                    <img src="course3.jpg" alt="Course 03">
+                    <h3>Object Oriented PRogramming Using Java</h3>
+                    <p>Lecturer</p>
+					<br>
+                    <button onclick="startCourse()">Start</button>
+                </div>
+                <div class="course">
+                    <img src="course4.jpg" alt="Course 04">
+                    <h3>Software Engineering</h3>
+                    <p>Lecturer</p>
+					<br><br>
+                    <button onclick="startCourse()">Start</button>
+                </div>
+				<div class="course">
+                    <img src="course4.jpg" alt="Course 05">
+                    <h3>Advanced Databases </h3>
+                    <p>Lecturer</p>
+					<br><br>
+                    <button onclick="startCourse()">Start</button>
+                </div>
+				                <div class="course">
+                    <img src="course4.jpg" alt="Course 04">
+                    <h3>Information Storage & Management Technologies </h3>
+                    <p>Lecturer</p>
+                    <button onclick="startCourse()">Start</button>
+                </div>
+             
+            </div>
+			          <div class="courses-row">
+                <div class="course">
+                    <img src="course1.jpg" alt="Course 06">
+                    <h3>Management Information Systems</h3>
+                    <p>Lecturer</p>
+                    <button onclick="startCourse()">Start</button>
+                </div>
+                <div class="course">
+                    <img src="course2.jpg" alt="Course 07">
+                    <h3>Research Methods</h3>
+                    <p>Lecturer</p>
+					<br>
+                    <button onclick="startCourse()">Start</button>
+                </div>
+                <div class="course">
+                    <img src="course3.jpg" alt="Course 08">
+                    <h3>Programming In Visual Basic</h3>
+                    <p>Lecturer</p>
+					<br>
+                    <button onclick="startCourse()">Start</button>
+                </div>
+                <div class="course">
+                    <img src="course4.jpg" alt="Course 09">
+                    <h3>Web Based Application Development</h3>
+                    <p>Lecturer</p>
+                    <button onclick="startCourse()">Start</button>
+                </div>
+                <div class="course">
+                    <img src="course5.jpg" alt="Course 10">
+                    <h3>Computer Crime and Forensics .</h3>
+                    <p>Lecturer</p>
+					<br>
+                    <button onclick="startCourse()">Start</button>
+                </div>
+				<div class="course">
+                    <img src="course2.jpg" alt="Course 07">
+                    <h3>Application Of Digital Technologies</h3>
+                    <p>Lecturer</p>
+                    <button onclick="startCourse()">Start</button>
+                </div>
+				
+            </div>
+			          
+ `;
+        }
+
+        function showLevel400() {
+            document.getElementById('main-content').innerHTML = `
+                               <h2>Courses</h2>
+                <div class="course-row">
+                    <div class="category">
+            <div class="courses-row">
+                <div class="course">
+                    <img src="course1.jpg" alt="Course 01">
+                    <h3>Mobile App Development </h3>
+                    <p>Lecturer</p>
+					<br>
+                    <button onclick="startCourse()">Start</button>
+                </div>
+                <div class="course">
+                    <img src="course2.jpg" alt="Course 02">
+                    <h3>E-Business </h3>
+                    <p>Lecturer</p>
+					<br><br>
+                    <button onclick="startCourse()">Start</button>
+                </div>
+                <div class="course">
+                    <img src="course3.jpg" alt="Course 03">
+                    <h3>IT Enterpreneurship</h3>
+                    <p>Lecturer</p>
+					<br>
+                    <button onclick="startCourse()">Start</button>
+                </div>
+                <div class="course">
+                    <img src="course4.jpg" alt="Course 04">
+                    <h3>Information Security Principles</h3>
+                    <p>Lecturer</p>
+                    <button onclick="startCourse()">Start</button>
+                </div>
+				<div class="course">
+                    <img src="course4.jpg" alt="Course 05">
+                    <h3>Human Computer Interaction</h3>
+                    <p>Lecturer</p>
+					<br>
+                    <button onclick="startCourse()">Start</button>
+                </div>
+                <div class="course">
+                    <img src="course4.jpg" alt="Course 06">
+                    <h3>Digital Media Editing </h3>
+                    <p>Lecturer</p>
+					<br>
+                    <button onclick="startCourse()">Start</button>
+                </div>  
+            </div>
+			          <div class="courses-row">
+                <div class="course">
+                    <img src="course1.jpg" alt="Course 07">
+                    <h3>Systems Security and Administration</h3>
+                    <p>Lecturer</p>
+                    <button onclick="startCourse()">Start</button>
+                </div>
+                <div class="course">
+                    <img src="course2.jpg" alt="Course 07">
+                    <h3>Introduction to AI</h3>
+                    <p>Lecturer</p>
+					<br>
+                    <button onclick="startCourse()">Start</button>
+                </div>
+                <div class="course">
+                    <img src="course3.jpg" alt="Course 08">
+                    <h3>IT Project Management</h3>
+                    <p>Lecturer</p>
+					<br>
+                    <button onclick="startCourse()">Start</button>
+                </div>
+				<div class="course">
+                    <img src="course4.jpg" alt="Course 09">
+                    <h3>Distributed Systems </h3>
+                    <p>Lecturer</p>
+					<br>
+                    <button onclick="startCourse()">Start</button>
+                </div>
+               
+                <div class="course">
+                    <img src="course5.jpg" alt="Course 10">
+                    <h3>Modern Telecommunications </h3>
+                    <p>Lecturer</p>
+					<br>
+                    <button onclick="startCourse()">Start</button>
+                </div>
+				                <div class="course">
+                    <img src="course4.jpg" alt="Course 04">
+                    <h3>Enterprise Information Systems</h3>
+                    <p>Lecturer</p>
+                    <button onclick="startCourse()">Start</button>
+                </div>
+			
+            </div>
+			        
+
+            `;
+        }
+		
+        document.getElementById('current-datetime').innerText = new Date().toLocaleString();
+        setInterval(() => {
+            document.getElementById('current-datetime').innerText = new Date().toLocaleString();
+        }, 1000);
+    </script>
+</body>
+</html>

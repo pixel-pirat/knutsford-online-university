@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Dashboard</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            background-color: #343a40;
+            color: white;
+            border-bottom: 50px solid #dee2e6;
+            width: 100%;
+            box-sizing: border-box;
+        }
+		.user-info button {
+            background-color: #555;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+		}
+        .main {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+
+        }
+		
+		  .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: white;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 5px;
+            overflow: hidden;
+        }	
+        .course-info {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+        .dashboard {
+            width: 200px;
+            background-color: #343a40;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            box-sizing: border-box;
+        }
+        .dashboard button {
+            background-color: #495057;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            border-radius: 5px;
+        }
+        .dashboard button:hover {
+            background-color: #6c757d;
+        }
+        .content-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+            padding: 10px;
+			background-color: grey;
+        }
+        .content {
+            flex: 1;
+            padding: 20px;
+            background-color: #fff;
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+		}
+		.time-content  {
+			display: flex;
+			border-radius: 5px
+			background-color: green;
+			
+			
+			
+        }
+        .chat-container {
+            width: 350px;
+            display: flex;
+            flex-direction: column;
+            background-color: #d4edda;
+            border: 2px solid #155724;
+            border-radius: 10px;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .chat-box {
+            flex: 1;
+            overflow-y: manifest;
+            margin-bottom: 10px;
+        }
+        .chat-input-container {
+            display: flex;
+            gap: 5px;
+        }
+        .chat-input-container input[type="text"] {
+            flex: 1;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .chat-input-container button {
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            background-color: #28a745;
+            color: #fff;
+        }
+        .message {
+            display: flex;
+            align-items: flex-end;
+            margin: 5px 0;
+        }
+        .message .content {
+            max-width: 70%;
+            padding: 10px;
+            border-radius: 10px;
+            position: relative;
+        }
+        .message.sent .content {
+            background-color: #e2ffc7;
+            align-self: flex-start;
+            border: 1px solid #b2d8a0;
+        }
+        .message.received .content {
+            background-color: #f1f1f1;
+            align-self: flex-end;
+            border: 1px solid #ccc;
+        }
+        .timestamp {
+            font-size: 0.8em;
+            color: #999;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="course-info">
+            <div class="course-title">Course Title</div>
+            <div class="course-code">Course Code</div>
+        </div>
+        <div class="user-info-dropdown">
+               <div class="user-info">
+            <button onclick="toggleDropdown()">User Info</button>
+            <div class="dropdown-content" id="userDropdown">
+                <p>Name: John Doe</p>
+                <p>Email: john.doe@example.com</p>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="main">
+        <div class="dashboard">
+		<center> <h3> Dashboard </h3> </center>
+            <button onclick="showAssignments()">Assignments</button>
+            <button onclick="showCourseBooks()">Course Books</button>
+            <button onclick="showVideos()">Videos</button>
+            <button onclick="showQuizzes()">Quizzes</button>
+            <button onclick="showPastQuestions()">Past Questions</button>
+        </div>
+        <div class="content-container">
+            <div class="content">
+				<div class="time-content">hello</div>
+					<div id="current-datetime"></div>
+				
+                <div id="main-content">
+                    <!-- Main content based on button click will be displayed here -->
+                </div>
+            </div>
+            <div class="chat-container">
+                <div class="chat-box" id="chat-box">
+                    <!-- Chat messages will be displayed here -->
+                </div>
+                <div class="chat-input-container">
+                    <input type="text" id="chat-input" placeholder="Type a message">
+                    <button onclick="sendMessage()">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+		function toggleDropdown() {
+            const dropdown = document.getElementById('userDropdown');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        }
+        function showAssignments() {
+            document.getElementById('main-content').innerHTML = `
+                <h2>Assignments</h2>
+                <ul>
+                    <li><a href="#">Assignment 1 (doc)</a></li>
+                    <li><a href="#">Assignment 2 (doc)</a></li>
+                </ul>
+            `;
+        }
+
+        function showCourseBooks() {
+            document.getElementById('main-content').innerHTML = `
+                <h2>Course Books</h2>
+                <ul>
+                    <li><a href="#">Course Book 1 (pdf)</a></li>
+                    <li><a href="#">Course Book 2 (pdf)</a></li>
+                </ul> `;
+        }
+
+        function showVideos() {
+            document.getElementById('main-content').innerHTML = `
+                <h2>Videos</h2>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+                    <div>Video 1</div>
+                    <div>Video 2</div>
+                    <div>Video 3</div>
+                    <div>Video 4</div>
+                    <div>Video 5</div>
+                    <div>Video 6</div>
+                    <div>Video 7</div>
+                    <div>Video 8</div>
+                    <div>Video 9</div>
+                </div>
+            `;
+        }
+
+        function showQuizzes() {
+            document.getElementById('main-content').innerHTML = `
+                <h2>Quizzes</h2>
+                <ul>
+                    <li><a href="#">Quiz 1 (pdf)</a></li>
+                    <li><a href="#">Quiz 2 (pdf)</a></li>
+                </ul>
+            `;
+        }
+
+        function showPastQuestions() {
+            document.getElementById('main-content').innerHTML = `
+                <h2>Past Questions</h2>
+                <ul>
+                    <li><a href="#">Past Question 1 (pdf)</a></li>
+                    <li><a href="#">Past Question 2 (pdf)</a></li>
+                </ul>
+            `;
+        }
+
+        function sendMessage() {
+            const chatInput = document.getElementById('chat-input');
+            const messageText = chatInput.value;
+            if (messageText.trim() === '') return;
+
+            const messageContainer = document.createElement('div');
+            messageContainer.className = 'message sent';
+            messageContainer.innerHTML = `
+                <div class="content">
+                    ${messageText}
+                    <div class="timestamp">${new Date().toLocaleTimeString()}</div>
+                </div>
+            `;
+
+            document.getElementById('chat-box').appendChild(messageContainer);
+            chatInput.value = '';
+
+            // Simulate admin response
+            setTimeout(() => {
+                const responseContainer = document.createElement('div');
+                responseContainer.className = 'message received';
+                responseContainer.innerHTML = `
+                    <div class="content">
+                        Hello.
+                        <div class="timestamp">${new Date().toLocaleTimeString()}</div>
+                    </div>
+                `;
+                document.getElementById('chat-box').appendChild(responseContainer);
+            }, 1000);
+        }
+
+        document.getElementById('current-datetime').innerText = new Date().toLocaleString();
+        setInterval(() => {
+            document.getElementById('current-datetime').innerText = new Date().toLocaleString();
+        }, 1000);
+    </script>
+</body>
+</html>

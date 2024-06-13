@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programs</title>
+   <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+		 body::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 250vh;
+            background-color: rgba(400, 200, 0, 10); /* Adjust the color and opacity as needed */
+            z-index: -1;
+        }
+        .container {
+            padding: 20px;
+        }
+        .heade {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .category {
+            margin-bottom: 40px;
+        }
+        .courses-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 50px;
+        }
+        .course {
+            background-color: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 18%;
+            text-align: center;
+        }
+        .course img {
+            width: 100%;
+            height: 250px;
+        }
+        .course button {
+            background-color: #6200ea;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .course button:hover {
+            background-color: #3700b3;
+        } header {
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+        }
+
+        .primary-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 20px;
+        }
+
+        .primary-menu li {
+            margin: 0;
+        }
+
+        .primary-menu a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            display: block;
+        }
+
+        .primary-menu a:hover {
+            background-color: #555;
+        }
+
+        main {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .cta-button:hover {
+            background-color: #0056b3;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+	<body>
+	    <header>
+        <nav>
+            <ul class="primary-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="program.html">Programs</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="login.php">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+	 <footer>
+        <p>&copy; 2024 E-Learning Platform. All rights reserved.</p>
+    </footer>
+    <div class="container">
+        <div class="heade">
+            <h1>PROGRAMS</h1>
+        </div>
+
+        <div class="category">
+            
+            <div class="courses-row">
+                <div class="course">
+                    <img src="C:\Users\DELL\Desktop\final Project\course-img\marketing.jpeg" alt="Progam 01">
+                    <h3>B.A. Marketing  </h3>
+                    <p>HOD</p>
+                    <button onclick="OpenCourse001()">Open </button>
+                </div>
+                <div class="course">
+                    <img src="C:\Users\DELL\Desktop\final Project\course-img\hrm.jpeg" alt="Progam 02">
+                    <h3>B.A. Human Resource Mgt. </h3>
+                    <p>HOD</p>
+                    <button onclick="OpenCourse002()">Open </button>
+                </div>
+                <div class="course">
+                    <img src="C:\Users\DELL\Desktop\final Project\course-img\finance.jpeg"  alt="Progam 03">
+                    <h3>B.A. Finance </h3>
+                    <p>HOD</p>
+                    <button onclick="OpenCourse003()">Open </button>
+                </div>
+                <div class="course">
+                    <img src="C:\Users\DELL\Desktop\final Project\course-img\accounting.jpeg" alt="Program 04">
+                    <h3>B.A. Accounting </h3>
+                    <p>HOD</p>
+                    <button onclick="OpenCourse004()">Open </button>
+                </div>
+           
+            </div>
+			<div class="courses-row">
+                <div class="course">
+                    <img src="C:\Users\DELL\Desktop\final Project\course-img\economics.jpeg" alt="Program 06">
+                    <h3>Economics</h3>
+                    <p>HOD</p>
+                    <button onclick="OpenCourse005()">Open </button>
+                </div>
+                <div class="course">
+                    <img src="C:\Users\DELL\Desktop\final Project\course-img\computerscience.jpeg" alt="Program 07">
+                    <h3>Computer Science </h3>
+                    <p>HOD</p>
+                    <button onclick="OpenCourse006()">Open </button>
+                </div>
+                <div class="course">
+                    <img src="C:\Users\DELL\Desktop\final Project\course-img\info.jpeg" alt="Program 08">
+                    <h3>Information Technology</h3>
+                    <p>HOD</p>
+                    <button onclick="OpenCourse007()">Open </button>
+                </div>
+                <div class="course">
+                    <img src="C:\Users\DELL\Desktop\final Project\course-img\nursing.jpeg" alt="Program 09">
+                    <h3>Nursing </h3>
+                    <p>HOD</p>
+                    <button onclick="OpenCourse008()">Open </button>
+                </div>
+			</div>	
+			<div class="courses-row">
+                <div class="course">
+                    <img src="C:\Users\DELL\Desktop\final Project\course-img\gencomm.jpeg" alt="Course 11">
+                    <h3>CMS. General Communication </h3>
+                    <p>HOD</p>
+                    <button onclick="OpenCourse009()">Open</button>
+                </div>
+                <div class="course">
+                    <img src="C:\Users\DELL\Desktop\final Project\course-img\mult.j.jpeg" alt="Course 12">
+                    <h3>CMS. Multimedia Journalism</h3>
+                    <p>HOD</p>
+                    <button onclick="OpenCourse010()">Open</button>
+                </div>
+                <div class="course">
+                    <img src="C:\Users\DELL\Desktop\final Project\course-img\stratcomm.jpeg" alt="Course 13">
+                    <h3>CMS. Strategic Communication </h3>
+                    <p>HOD</p>
+                    <button onclick="OpenCourse011()">Open</button>
+                </div>
+                <div class="course">
+                    <img src="C:\Users\DELL\Desktop\final Project\course-img\devcom.jpeg" alt="Course 14">
+                    <h3>CMS. Development Communication</h3>
+                    <p>HOD</p>
+                    <button onclick="OpenCourse012()">Open</button>
+                </div>
+            </div>
+	</body>	
+    <script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+        fetch('menu.html')
+            .then(response => response.text())
+            .then(data => {
+                document.querySelector('header').innerHTML = data;
+            });
+    });
+
+
+        function OpenCourse001() {
+            window.location.href = 'Marketing.html';
+        }
+		function OpenCourse002() {
+            window.location.href = 'HRM.html';
+        }
+		function OpenCourse003() {
+            window.location.href = 'Finance.html';
+        }
+		function OpenCourse004() {
+            window.location.href = 'Accounting.html';
+        }
+		function OpenCourse005() {
+            window.location.href = 'Economics.html';
+        }
+		function OpenCourse006() {
+            window.location.href = 'Computer Science.html';
+        }
+		function OpenCourse007() {
+            window.location.href = 'Information technology.html';
+        }
+		function OpenCourse008() {
+            window.location.href = 'Nursing.html';
+        }
+		   function OpenCourse009() {
+            window.location.href = 'CMS generalCommunication.html';
+        }
+		   function OpenCourse010() {
+            window.location.href = 'CMS multimediaJournalism.html';
+        }
+		   function OpenCourse011() {
+            window.location.href = 'CMS stategicCommunication.html';
+        }
+		   function OpenCourse012() {
+            window.location.href = 'CMS deveopmentCommunication.html';
+        }
+    </script>
+</html>	
+            
+	
